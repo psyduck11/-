@@ -1,0 +1,32 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<iostream>
+#include<stdio.h>
+#include <stack>
+using namespace std;
+char match(char str) {
+    if (str == '}')  return '{';
+    if (str == ']')  return '[';
+    return '(';
+}
+bool isValid(string s) {
+    stack<char> st;
+    for (char str : s) {
+        if (str == '(' || str == '[' || str == '{') {
+            st.push(str);
+        }
+        else if (!st.empty() && match(str) == st.top()) st.pop();
+        else
+            return false;
+    }
+
+    return st.empty();
+}
+int main() {
+    char s[10000];
+    scanf("%s", s);
+    isValid(s);
+    if (isValid(s))
+        printf("%d", 1);
+    else printf("%d", 0);
+    return 0;
+}
